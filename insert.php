@@ -20,7 +20,7 @@ $connect->query("SET NAMES 'utf8'");
 
 
 $datetime=date("Y-m-d H:i:s",time()+6*60*60);
-
+echo 'test';
 $shopname=$_GET['shopname'];
 $problem=$_GET['problem'];
 $solution=$_GET['solution'];

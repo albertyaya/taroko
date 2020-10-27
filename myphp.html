@@ -3,14 +3,13 @@
 <head ><h1 align="center">新增叫修紀錄</h1></head>
 <body bgcolor="#48D1CC"　text="#0000EE"  >
  <title >新增叫修紀錄</title>
- <a href="http://127.0.0.1/inquire.php" >
+ <a href="http://127.0.0.1/myproject/inquire.php" >
     <input type="button" value="回查詢首頁">
-   </a>
+</a>
  <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
- <form action="insert.php" method="GET">
-    <div class="content">
+ <form action="insert.php" method="post">
    
-       
+    <div class="content">
         <div class="Data-Title">
                 <label for ="shopname"><h3>櫃位名稱:</h3></label>
                 <input type="text"  name="shopname" size="28" maxlength="16"  placeholder="名稱最多16個字元" required></div>
@@ -26,7 +25,7 @@
 
                 <div class="Data-Title">
                 <label for ="remark"><h3>備註:</h3></label><br/>
-                <textarea name="remark" rows="5" cols="40"  ></textarea>
+                <textarea name="remark" rows="5" cols="40" placeholder="ex:借給店櫃的設備" ></textarea>
               
                 <div class="Data-Title">
                    <h3>工程師:</h3>
@@ -43,8 +42,9 @@
             <div class="Data-submit">
             <input type="submit" name="submit" value="完成">
             <input type="RESET" name="RESET" value="清除">
-            </div>   
-      </div>  
+        </div>   
+    </div>  
+
     <style type="text/css">
             .Data-Title{
                 width:400px;

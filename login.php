@@ -1,5 +1,15 @@
 <?PHP
 
+function jumpWeb()
+{
+    echo "
+  <script>
+  setTimeout(function(){window.location.href='login.html';},1000);
+  </script>";
+//如果錯誤使用js 1秒後跳轉到登入頁面重試;
+}
+
+
 $host = 'localhost';
  
 $user = 'root';
@@ -22,10 +32,7 @@ $passowrd = $_POST['password'];//post獲得使用者密碼單值
 $message = '表單填寫不完整';
 if ($name == '' || $password == '') {
     echo "表單填寫不完整";
-    echo "
-      <script>
-      setTimeout(function(){window.location.href='login.html';},1000);
-      </script>";
+    jumpWeb();
 }
 
 $sql = "select * from userdata where username = '$name' and password='$passowrd'";//檢測資料庫是否有對應的username和password的sql
@@ -39,10 +46,6 @@ if(mysqli_num_rows($result))
 } else {
     //如果使用者名稱或密碼有空
     echo "表單填寫不完整";
-    echo "
-  <script>
-  setTimeout(function(){window.location.href='login.html';},1000);
-  </script>";
-//如果錯誤使用js 1秒後跳轉到登入頁面重試;
+    jumpWeb();
 }
 ?>

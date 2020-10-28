@@ -39,7 +39,9 @@ $status = $connect->query($insertSql);
  
 if ($status)
 {
+  header('Location: http://127.0.0.1/myproject/inquire.php');
   echo '新增成功'.'<br>';
+  
 } 
 else 
 {
@@ -49,3 +51,6 @@ else
 <a href="http://127.0.0.1/myproject/inquire.php" >
     <input type="button" value="回查詢首頁">
    </a>
+
+
+   

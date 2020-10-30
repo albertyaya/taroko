@@ -2,11 +2,8 @@
 
 function jumpWeb()
 {
-    echo "
-  <script>
-  setTimeout(function(){window.location.href='login.html';},1000);
-  </script>";
-//如果錯誤使用js 1秒後跳轉到登入頁面重試;
+    sleep(1000); //暫停一秒
+    header('Location:/login.html');
 }
 
 
@@ -33,20 +30,20 @@ $pa = $_POST['password'];//post獲得使用者密碼單值;
 
 if ($name === '' || $pa === '') {
     echo "表單填寫不完整";
-   // jumpWeb();
+    jumpWeb();
 }
 
 $sql = "select * from userdata where username = '$name' and password='$pa'";//檢測資料庫是否有對應的username和password的sql
 $result=mysqli_query($connect, $sql);//執行sql
 echo $sql;
 if(mysqli_num_rows($result))
-{//0 false 1 true
-    // header('Location: http://127.0.0.1/myproject/inquire.php');
-    //exit;
+{
     echo "登入成功";
+    $_SESSION['login'] = true;
+
 } else {
     //如果使用者名稱或密碼有空
     echo "error";
-    //jumpWeb();
+    jumpWeb();
 }
 ?>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    .search_center
+    {
+        text-align: center;
+    }
+   .odd {background:	#53FF53;}
+   .even {background:#A6FFA6;}
+</style>
+<body>
+    
+<form method="get" action="fixRecord.php" onsubmit="return search()">
+    <div class="search_center">  
+        <input id = "search" type="search" name="search" placeholder="輸入關鍵字"  size="60" required>
+        <input type="submit"  value="搜尋" ></br>
+    </div> 
+</form>
+
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+<script>
+
+    function search() {
+        let search = document.querySelector('#search').value;
+        let self = this;
+        $.ajax({
+            type: "get",
+            url: "fixRecord.php",
+            data: {search: self.search},
+            dataType: "dataType",
+            success: function (response) {
+                
+            }
+        });
+    }
+
+
+
+</script>
+
+</html>

@@ -24,29 +24,28 @@ if (!$connect)
 {
     die("連線失敗: " .mysqli_connect_error());
 }
-echo "連線成功";
+//echo "連線成功";
 
 
 $name = $_POST['name'];//post獲得使用者名稱錶單值
 $pa = $_POST['password'];//post獲得使用者密碼單值;
 
 
-if ($name === '' || $pa === '') {
+/*if ($name === '' || $pa === '') {
     echo "表單填寫不完整";
    // jumpWeb();
-}
+}*/
 
 $sql = "select * from userdata where username = '$name' and password='$pa'";//檢測資料庫是否有對應的username和password的sql
 $result=mysqli_query($connect, $sql);//執行sql
-echo $sql;
-if(mysqli_num_rows($result))
-{//0 false 1 true
-    // header('Location: http://127.0.0.1/myproject/inquire.php');
-    //exit;
-    echo "登入成功";
+
+if(mysqli_num_rows($result))//0 false 1 true
+{
+     header('Location: http://127.0.0.1/myproject/inquire.php');
+     echo "登入成功";
 } else {
     //如果使用者名稱或密碼有空
     echo "error";
-    //jumpWeb();
+    jumpWeb();
 }
 ?>

@@ -60,8 +60,20 @@
   $date=$_POST['date'];
 
   $sqldate="SELECT date1 FROM fix where date1 like '%$date%' " ;
-  $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1 like '{%$date%}' ";
-  $result=mysqli_query($connect,$selectSql);
+//  $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1 like '{%$date%}' ";
+     $where = [];
+     if ($shopname) {
+         $where[] = ["shopname like '%{$shopname}%' or engineer like '%{$shopname}%'"];
+     }
+
+     if ($date) {
+         $nextDate =  date('Y-m-d',strtotime("$date +1 day"));
+         $string = "( date1 >= {$date} and {$nextDate} < date1 )";
+         $where[] = $string;
+     }
+     $where = implode(' and ', $where);
+     $selectSql = "SELECT * FROM fix where {$where}";
+     $result=mysqli_query($connect,$selectSql);
   
  
   if($shopname=='' && $date ==''){echo "name is empty ";}

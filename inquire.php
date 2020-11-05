@@ -63,7 +63,7 @@
 //  $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1 like '{%$date%}' ";
      $where = [];
      if ($shopname) {
-         $where[] = ["shopname like '%{$shopname}%' or engineer like '%{$shopname}%'"];
+         $where[] = "shopname like '%{$shopname}%' or engineer like '%{$shopname}%'";
      }
 
      if ($date) {

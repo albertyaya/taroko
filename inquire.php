@@ -61,7 +61,7 @@
   $where = [];
   if ($shopname) 
   {	    
-      $where[] = "(shopname='{$shopname}' or engineer='{$shopname}')";	       
+      $where[] = "(shopname='$shopname' or engineer='$shopname')";	       
   }
 
   if ($date) 

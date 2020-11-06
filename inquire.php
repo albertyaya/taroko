@@ -55,7 +55,6 @@
  if($_SERVER["REQUEST_METHOD"] == "POST")
  {
   
-  //$results=mysqli_query($connect,$sqldate);
   $shopname=$_POST['search'];
   $date=$_POST['date'];
   
@@ -72,37 +71,10 @@
          $where[] = $string;	        
      }	     
      $where = implode('AND', $where);
-
-
-<<<<<<< HEAD
-  $selectSql="SELECT * FROM fix where {$where} " ;
-  echo   $selectSql;
-  echo "<br>";
- 
- // $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1='$date' ";
-  $result=mysqli_query($connect,$selectSql);
-=======
-  $sqldate="SELECT date1 FROM fix where date1 like '%$date%' " ;
-//  $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1 like '{%$date%}' ";
-     $where = [];
-     if ($shopname) {
-         $where[] = ["shopname like '%{$shopname}%' or engineer like '%{$shopname}%'"];
-     }
-
-     if ($date) {
-         $nextDate =  date('Y-m-d',strtotime("$date +1 day"));
-         $string = "( date1 >= {$date} and {$nextDate} < date1 )";
-         $where[] = $string;
-     }
-     $where = implode(' and ', $where);
-     $selectSql = "SELECT * FROM fix where {$where}";
-     $result=mysqli_query($connect,$selectSql);
->>>>>>> f771f13099751fafc1c53e39a67f527f3229a235
-  
  
   if($shopname=='' && $date ==''){echo "name is empty ";}
   else{ 
- //$fixData = $connect->query($selectSql);
+
  //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
 
  $i=1;

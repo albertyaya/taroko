@@ -1,11 +1,28 @@
 ﻿
+
+
 <html>
 <head ><h1 align="center">新增叫修紀錄</h1></head>
 <body bgcolor="#48D1CC"　text="#0000EE"  >
+<?php 
+  session_start();
+   if(!isset($_SESSION["login"]) || ($_SESSION["login"]==""))
+  { 
+ 
+  
+    header("Location:login.html");
+  }
+  else{};
+?>
  <title >新增叫修紀錄</title>
  <a href="http://127.0.0.1/myproject/inquire.php" >
     <input type="button" value="回查詢首頁">
 </a>
+<a href="http://127.0.0.1/myproject/logout.php" >
+    <input type="button" value="登出">
+</a>
+
+
  <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
  <form action="insert.php" method="post">
    
@@ -26,7 +43,12 @@
                 <div class="Data-Title">
                 <label for ="remark"><h3>備註:</h3></label><br/>
                 <textarea name="remark" rows="5" cols="40" placeholder="ex:借給店櫃的設備" ></textarea>
-              
+
+                <div class="Data-Title">
+                <input type="file" name="filename" size="30" value="上傳檔案" multiple></br>
+                </div>
+               
+                <div class="Data-Title">
                 <div class="Data-Title">
                    <h3>工程師:</h3>
                     <select name="address" >
@@ -72,11 +94,6 @@
         
 
 </style>
-
-    
-    
-    
-
 </form>
 </body>
 </html>

@@ -1,5 +1,17 @@
 
 <?php
+
+function jumpWeb()
+{
+  echo "
+  <script>
+  setTimeout(function(){window.location.href='myphp.php';},1500);
+  </script>";
+//如果錯誤使用js 1秒後跳轉到登入頁面重試;
+ 
+}
+
+
 $host = 'localhost';
 //改成你登入phpmyadmin帳號
 $user = 'root';
@@ -15,8 +27,8 @@ if ($connect->connect_error) {
 }
 //echo "連線成功" ;
 echo '<br>';
-//設定連線編碼，防止中文字亂碼
-$connect->query("SET NAMES 'utf8'");
+
+$connect->query("SET NAMES 'utf8'");//設定連線編碼，防止中文字亂碼
 
 
 
@@ -39,18 +51,18 @@ $status = $connect->query($insertSql);
  
 if ($status)
 {
-  header('Location: http://127.0.0.1/myproject/inquire.php');
   echo '新增成功'.'<br>';
   
+  jumpWeb();
 } 
 else 
 {
     echo "錯誤: " . $insertSql . "<br>" . $connect->error;
 }
 ?>
-<a href="http://127.0.0.1/myproject/inquire.php" >
+<!--<a href="http://127.0.0.1/myproject/inquire.php" >
     <input type="button" value="回查詢首頁">
-   </a>
+   </a>-->
 
 
    

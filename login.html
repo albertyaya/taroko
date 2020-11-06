@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>登入</title>
-<h1>使用者登入</h1>
+<title>使用者登入</title>
+
 </head>
 <body>
+    <script>window.alert("請先登入");</script>  <!--嵌入java script對話方塊-->
 <form name="login" action="login.php" method="post">
-<p>使用者名稱<input type=text name="name"></p>
-<p>密 碼<input type=password name="password"></p>
+    <fieldset>  <!--將表單欄位群組起來-->
+        <legend ><h1>使用者登入</h1></legend>
+<p> 帳 號 <input type=text name="name" required></p>
+<p> 密 碼 <input type=password name="password" required></p>
+</fieldset>
 <p><input type="submit" name="submit" value="登入"></p>
 </form>
 </body>

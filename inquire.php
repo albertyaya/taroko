@@ -62,16 +62,17 @@
 //  $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1 like '{%$date%}' ";
      $where = [];
      if ($shopname) {
-         $where[] = "shopname like '%{$shopname}%' or engineer like '%{$shopname}%'";
+         $where[] = "(shopname like '%{$shopname}%' or engineer like '%{$shopname}%')";
      }
 
      if ($date) {
          $nextDate =  date('Y-m-d',strtotime("$date +1 day"));
-         $string = "( date1 >= {$date} and {$nextDate} < date1 )";
+         $string = "( date1 >= '{$date}' and  date1 < '{$nextDate}' )";
          $where[] = $string;
      }
      $where = implode(' and ', $where);
      $selectSql = "SELECT * FROM fix where {$where}";
+
      $result=mysqli_query($connect,$selectSql);
   
   $where = [];
@@ -87,7 +88,10 @@
          $where[] = $string;	        
      }	     
      $where = implode('AND', $where);
- 
+ echo $selectSql;
+ //SELECT * FROM fix where (shopname like '%糖果森林%' or engineer like '%糖果森林%') and ( date1 >= '2020-11-06' and date1 < '2020-11-07' )
+ //需要括號，不然會變成shopname like '%糖果森林%' or (engineer like '%糖果森林%' and date1 >= '2020-11-06' and date1 < '2020-11-07' )
+ //前面成立後面就不會判斷了
   if($shopname=='' && $date ==''){echo "name is empty ";}
   else{ 
 

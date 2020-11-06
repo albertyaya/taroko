@@ -6,7 +6,7 @@
 </head>
 <body bgcolor="#48D1CC"　text="#0000EE"  >
  <title >叫修紀錄查詢</title>
- <a href="http://127.0.0.1/myproject/myphp.html" >
+ <a href="http://127.0.0.1/myproject/myphp.php" >
   <img src="129.png" width="100px" height="60px">
  </a>
  <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
@@ -58,9 +58,27 @@
   //$results=mysqli_query($connect,$sqldate);
   $shopname=$_POST['search'];
   $date=$_POST['date'];
+  
+  $where = [];
+  if ($shopname) 
+  {	    
+      $where[] = "(shopname='{$shopname}' or engineer='{$shopname}')";	       
+  }
 
-  $sqldate="SELECT date1 FROM fix where date1 like '%$date%' " ;
-  $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1 like '{%$date%}' ";
+  if ($date) 
+      {	     
+         $nextDate =  date('Y-m-d',strtotime("$date +1 day"));	         
+         $string = " date1 >= '$date' and date1 < '$nextDate'  ";	       
+         $where[] = $string;	        
+     }	     
+     $where = implode('AND', $where);
+
+
+  $selectSql="SELECT * FROM fix where {$where} " ;
+  echo   $selectSql;
+  echo "<br>";
+ 
+ // $selectSql = "SELECT * FROM fix where shopname like '%$shopname%' or date1 like '%$shopname%' or engineer like '%$shopname%' or date1='$date' ";
   $result=mysqli_query($connect,$selectSql);
   
  
@@ -73,8 +91,8 @@
  
  echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>工程師</th></tr>";
  if (mysqli_num_rows($result)>0) 
- { 
-     
+ {  
+    
      while ($row = mysqli_fetch_assoc($result))
      { 
        if($i%2==1)
@@ -95,11 +113,12 @@
 
      
  } 
- else
- {
+  else
+  {
      echo '0筆資料';
- }
-}
+  }
+
+    }
 }
  ?>
 

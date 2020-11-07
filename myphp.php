@@ -9,7 +9,7 @@
   { 
  
   
-    header("Location:login.html");
+    header("Location:login.php");
   }
   else{};
 ?>

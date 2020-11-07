@@ -1,107 +1,110 @@
 <!DOCTYPE html>
 <html>
-<head >
+
+<head>
     <h1 align="center">叫修紀錄查詢</h1>
     <meta charset="utf-8">
 </head>
-<body bgcolor="#48D1CC"　text="#0000EE"  >
- <title >叫修紀錄查詢</title>
- <a href="http://127.0.0.1/myproject/myphp.php" >
-  <img src="129.png" width="100px" height="60px">
- </a>
- <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
- 
- 
- <form method="POST" action=" <?php echo $_SERVER['PHP_SELF'];?>">
-   <div class="search_center">  
-     <input type="date"  name="date" >
-     <input type="search" name="search" placeholder="輸入關鍵字"  size="60">
-     <input type="submit"  value="搜尋" ></br>
-   </div> 
-</form>
-<style type="text/css">
-     .search_center
-     {
-         text-align: center;
-     }
-    .odd {background:	#53FF53;}
-    .even {background:#A6FFA6;}
-   </style>
- 
- <?php
- $host = 'localhost';
- 
- $user = 'root';
- 
- $passwd = '';
-  
- $database = 'taroko';
- 
- $connect = new mysqli($host, $user, $passwd, $database);
- 
- echo "<table align='center' border=2px  bordercolor='#1A1A1A' ";
 
- if (!$connect) 
- {
-     die("連線失敗: " .mysqli_connect_error());
- }
- //echo "連線成功";
- echo '<br>';
-  
-  
- 
- $connect->query("SET NAMES utf8");
+<body bgcolor="#48D1CC" 　text="#0000EE">
+    <title>叫修紀錄查詢</title>
+    <a href="http://127.0.0.1/myproject/myphp.php">
+        <img src="129.png" width="100px" height="60px">
+    </a>
+    <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
 
-  $shopname=$_POST['search'];
-  $date=$_POST['date'];
 
-  $where = [];
-  if ($shopname) 
-  {	    
-      $where[] = "(shopname='$shopname' or engineer='$shopname')";	       
-  }
+    <form method="POST" action=" <?php echo $_SERVER['PHP_SELF']; ?>">
+        <div class="search_center">
+            <input type="date" name="date">
+            <input type="search" name="search" placeholder="輸入關鍵字" size="60">
+            <input type="submit" value="搜尋"></br>
+        </div>
+    </form>
+    <style type="text/css">
+        .search_center {
+            text-align: center;
+        }
 
-  if ($date) 
-      {	     
-         $nextDate =  date('Y-m-d',strtotime("$date +1 day"));	         
-         $string = " date1 >= '$date' and date1 < '$nextDate'  ";	       
-         $where[] = $string;	        
-     }
+        .odd {
+            background: #53FF53;
+        }
 
-  $where = implode('AND', $where);
- $selectSql = "SELECT * FROM fix where {$where}";
- $result=mysqli_query($connect,$selectSql);
- echo $selectSql;
- //SELECT * FROM fix where (shopname like '%糖果森林%' or engineer like '%糖果森林%') and ( date1 >= '2020-11-06' and date1 < '2020-11-07' )
- //需要括號，不然會變成shopname like '%糖果森林%' or (engineer like '%糖果森林%' and date1 >= '2020-11-06' and date1 < '2020-11-07' )
- //前面成立後面就不會判斷了
-  if($shopname=='' && $date ==''){echo "name is empty"; exit;}
+        .even {
+            background: #A6FFA6;
+        }
+    </style>
 
- //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
- echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>工程師</th></tr>";
- if (!mysqli_num_rows($result))
- {
-     echo '0筆資料';
- }
- $i=1;
- while ($row = mysqli_fetch_assoc($result))
- {
-     if($i%2==1)
-     {
-         echo "<tr class='odd'>";
-         echo "<td width='150' align='center'>". $row["date1"] . "</td><td width='150' align='center'>". $row["shopname"] . "</td><td width='200'>" . $row["problem"] . "</td><td width='200'>" . $row["solution"] . "</td><td width='200'>" . $row["remark"] . "</td><td width='150' align='center'>".$row["engineer"]."</td>";
-         echo "</tr>";
-     }
-     else
-     {
-         echo "<tr class='even'>";
-         echo "<td width='150' align='center'>". $row["date1"] . "</td><td width='150' align='center'>". $row["shopname"] . "</td><td width='200'>" . $row["problem"] . "</td><td width='200'>" . $row["solution"] . "</td><td width='200'>" . $row["remark"] . "</td><td width='150' align='center'>".$row["engineer"]."</td>";
-         echo "</tr>";
-     }
-     $i++;
- }
- ?>
+    <?php
+    $host = 'localhost';
+
+    $user = 'root';
+
+    $passwd = '';
+
+    $database = 'taroko';
+
+    $connect = new mysqli($host, $user, $passwd, $database);
+
+    echo "<table align='center' border=2px  bordercolor='#1A1A1A' ";
+
+    if (!$connect) {
+        die("連線失敗: " . mysqli_connect_error());
+    }
+    //echo "連線成功";
+    echo '<br>';
+
+
+
+    $connect->query("SET NAMES utf8");
+
+    $shopname = $_POST['search'];
+    $date = $_POST['date'];
+
+    $where = [];
+    if ($shopname) {
+        $where[] = "(shopname='$shopname' or engineer='$shopname')";
+    }
+
+    if ($date) {
+        $nextDate =  date('Y-m-d', strtotime("$date +1 day"));
+        $string = " date1 >= '$date' and date1 < '$nextDate'  ";
+        $where[] = $string;
+    }
+
+    $where = implode('AND', $where);
+    $selectSql = "SELECT * FROM fix where {$where}";
+    $result = mysqli_query($connect, $selectSql);
+    echo $selectSql;
+    //SELECT * FROM fix where (shopname like '%糖果森林%' or engineer like '%糖果森林%') and ( date1 >= '2020-11-06' and date1 < '2020-11-07' )
+    //需要括號，不然會變成shopname like '%糖果森林%' or (engineer like '%糖果森林%' and date1 >= '2020-11-06' and date1 < '2020-11-07' )
+    //前面成立後面就不會判斷了
+    if ($shopname == '' && $date == '') {
+        echo "name is empty";
+        exit;
+    }
+
+    //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
+    echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>工程師</th></tr>";
+    if (!mysqli_num_rows($result)) {
+        echo '0筆資料';
+    }
+    $i = 1;
+    while ($row = mysqli_fetch_assoc($result)) {
+        if ($i % 2 == 1) {
+            echo "<tr class='odd'>";
+            echo "<td width='150' align='center'>" . $row["date1"] . "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200'>" . $row["problem"] . "</td><td width='200'>" . $row["solution"] . "</td><td width='200'>" . $row["remark"] . "</td><td width='150' align='center'>" . $row["engineer"] . "</td>";
+            echo "</tr>";
+        } else {
+            echo "<tr class='even'>";
+            echo "<td width='150' align='center'>" . $row["date1"] . "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200'>" . $row["problem"] . "</td><td width='200'>" . $row["solution"] . "</td><td width='200'>" . $row["remark"] . "</td><td width='150' align='center'>" . $row["engineer"] . "</td>";
+            echo "</tr>";
+        }
+        $i++;
+    }
+    ?>
 
 
 </body>
+
 </html>

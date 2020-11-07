@@ -12,26 +12,8 @@ function jumpWeb()
 }
 
 
-$host = 'localhost';
-//改成你登入phpmyadmin帳號
-$user = 'root';
-//改成你登入phpmyadmin密碼
-$passwd = '';
-//資料庫名稱
-$database = 'taroko';
-//實例化mysqli(資料庫路徑, 登入帳號, 登入密碼, 資料庫)
-$connect = new mysqli($host, $user, $passwd, $database);
+include("sql_connect.php");
  
-if ($connect->connect_error) {
-    die("連線失敗: " . $connect->connect_error);
-}
-//echo "連線成功" ;
-echo '<br>';
-
-$connect->query("SET NAMES 'utf8'");//設定連線編碼，防止中文字亂碼
-
-
-
 $datetime=date("Y-m-d H:i:s",time()+6*60*60);
 $shopname=$_POST['shopname'];
 $problem=$_POST['problem'];

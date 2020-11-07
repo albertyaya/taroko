@@ -11,6 +11,7 @@
     <a href="http://127.0.0.1/myproject/myphp.php">
         <img src="129.png" width="100px" height="60px">
     </a>
+    
     <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
 
 
@@ -36,34 +37,28 @@
     </style>
 
     <?php
-    $host = 'localhost';
-
-    $user = 'root';
-
-    $passwd = '';
-
-    $database = 'taroko';
-
-    $connect = new mysqli($host, $user, $passwd, $database);
+    include("sql_connect.php");
+   // $connect = new mysqli('localhost','root','','taroko');
 
     echo "<table align='center' border=2px  bordercolor='#1A1A1A' ";
 
-    if (!$connect) {
-        die("連線失敗: " . mysqli_connect_error());
+  /*  if (!$connect) {
+        die("Could not connect: " . mysqli_connect_error());
     }
-    //echo "連線成功";
-    echo '<br>';
+    echo "連線成功";
+    echo '<br>';*/
 
 
 
-    $connect->query("SET NAMES utf8");
-
+  // $connect->query("SET NAMES utf8");
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
     $shopname = $_POST['search'];
     $date = $_POST['date'];
 
     $where = [];
     if ($shopname) {
-        $where[] = "(shopname='$shopname' or engineer='$shopname')";
+        $where[] = "(shopname='$shopname' or engineer='$shopname' or remark like '%$shopname%')";
     }
 
     if ($date) {
@@ -101,9 +96,10 @@
         }
         $i++;
     }
+}
     ?>
 
-
+<META HTTP-EQUIV="REFRESH" CONTENT="600;URL=logout.php"><!--10分鐘後自動登出-->
 </body>
 
 </html>

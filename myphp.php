@@ -94,5 +94,6 @@
 
 </style>
 </form>
+<META HTTP-EQUIV="REFRESH" CONTENT="600;URL=logout.php"> <!--10分鐘後自動登出-->
 </body>
 </html>

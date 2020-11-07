@@ -28,21 +28,7 @@ function jumpWeb()
 }
 
 
-$host = 'localhost';
- 
-$user = 'root';
-
-$password = '';
- 
-$database = 'user';
-
-$connect = new mysqli($host, $user, $password, $database);
-
-if (!$connect) 
-{
-    die("連線失敗: " .mysqli_connect_error());
-}
-//echo "連線成功";
+include("sql_connect.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
  {

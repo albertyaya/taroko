@@ -17,7 +17,8 @@
 
     <form method="POST" action=" <?php echo $_SERVER['PHP_SELF']; ?>">
         <div class="search_center">
-            <input type="date" name="date">
+            <input type="date" name="from_date" >
+            to <input type="date" name="to_date" ></br>
             <input type="search" name="search" placeholder="輸入關鍵字" size="60">
             <input type="submit" value="搜尋"></br>
         </div>
@@ -38,43 +39,46 @@
 
     <?php
     include("sql_connect.php");
-   // $connect = new mysqli('localhost','root','','taroko');
 
-    echo "<table align='center' border=2px  bordercolor='#1A1A1A' ";
+    echo "<table align='center' border=2px  bordercolor='#1A1A1A' >";
 
-  /*  if (!$connect) {
-        die("Could not connect: " . mysqli_connect_error());
-    }
-    echo "連線成功";
-    echo '<br>';*/
+    echo '<br>';
 
-
-
-  // $connect->query("SET NAMES utf8");
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
     $shopname = $_POST['search'];
-    $date = $_POST['date'];
+    $date1 = $_POST['from_date'];
+    $date2 = $_POST['to_date'];
 
     $where = [];
+
+    if($date1&&$date2)
+    {   $nextDate =  date('Y-m-d', strtotime("$date2 +1 day"));
+        $string ="(date1 >= '$date1' and date1 <= '$nextDate' )";
+        $where[]=$string;
+    }
+
+     
+
+    else if ($date1) {
+        $nextDate =  date('Y-m-d', strtotime("$date1 +1 day"));
+        $string = " date1 >= '$date1' and date1 < '$nextDate'  ";
+        $where[] = $string;
+    }
     if ($shopname) {
         $where[] = "(shopname='$shopname' or engineer='$shopname' or remark like '%$shopname%')";
     }
 
-    if ($date) {
-        $nextDate =  date('Y-m-d', strtotime("$date +1 day"));
-        $string = " date1 >= '$date' and date1 < '$nextDate'  ";
-        $where[] = $string;
-    }
-
-    $where = implode('AND', $where);
+  
+    $where = implode('and', $where);
     $selectSql = "SELECT * FROM fix where {$where}";
+   // echo $selectSql;
     $result = mysqli_query($connect, $selectSql);
-    echo $selectSql;
+    
     //SELECT * FROM fix where (shopname like '%糖果森林%' or engineer like '%糖果森林%') and ( date1 >= '2020-11-06' and date1 < '2020-11-07' )
     //需要括號，不然會變成shopname like '%糖果森林%' or (engineer like '%糖果森林%' and date1 >= '2020-11-06' and date1 < '2020-11-07' )
     //前面成立後面就不會判斷了
-    if ($shopname == '' && $date == '') {
+    if ($shopname == '' && $date1 == '') {
         die('name is empty');
     }
 
@@ -96,6 +100,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
         $i++;
     }
+    $i=$i-1;
+    echo "<div align=center>總共".$i."資料</div>";
+    echo "<br>";
 }
     ?>
 

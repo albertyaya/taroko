@@ -61,8 +61,10 @@ if ($name =="admin" && $pa == "admin") {
  }
 ?>
 </fieldset>
-<p><input type="submit" name="submit" value="登入"></p>
+<input type="submit" name="submit" value="登入">
+<a href="http://127.0.0.1/myproject/inquire.php" >
+    <input type="button" value="回查詢首頁">
+</a>
 </form>
-
 </body>
 </html>

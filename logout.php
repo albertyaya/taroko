@@ -3,6 +3,6 @@
 <?php
 //將session清空
 unset($_SESSION['login']);
-echo '登出中......';
-echo '<meta http-equiv=REFRESH CONTENT=1;url=inquire.php>';
+//echo '登出中......';
+echo '<meta http-equiv=REFRESH CONTENT=0;url=inquire.php>';
 ?>

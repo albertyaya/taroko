@@ -51,14 +51,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $date2 = $_POST['to_date'];
 
     $where = [];
-
     if($date1&&$date2)
     {   $nextDate =  date('Y-m-d', strtotime("$date2 +1 day"));
         $string ="(date1 >= '$date1' and date1 <= '$nextDate' )";
         $where[]=$string;
     }
-
-     
 
     else if ($date1) {
         $nextDate =  date('Y-m-d', strtotime("$date1 +1 day"));
@@ -69,7 +66,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $where[] = "(shopname='$shopname' or engineer='$shopname' or remark like '%$shopname%')";
     }
 
-  
     $where = implode('and', $where);
     $selectSql = "SELECT * FROM fix where {$where}";
    // echo $selectSql;
@@ -82,12 +78,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         die('name is empty');
     }
 
-    //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
+    
     echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>工程師</th></tr>";
     if (!mysqli_num_rows($result)) {
         die('0筆資料');
     }
     $i = 1;
+    //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
     while ($row = mysqli_fetch_assoc($result)) {
         if ($i % 2 == 1) {
             echo "<tr class='odd'>";

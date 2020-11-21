@@ -9,11 +9,14 @@
 <body bgcolor="#48D1CC" 　text="#0000EE">
     <title>叫修紀錄查詢</title>
     <a href="http://127.0.0.1/myproject/myphp.php">
-        <img src="129.png" width="100px" height="60px">
+    <input type="button" name="button" value="新增叫修">
     </a>
     <a href="http://127.0.0.1/myproject/inquire_modify.php">
-    <input type="button" name="modify" value="修改資料">
+    <input type="button" name="button" value="修改資料">
     </a>
+    <a href="http://127.0.0.1/myproject/logout.php">
+    <input type="button" value="登出">
+</a>
     <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
 
 
@@ -40,7 +43,7 @@
     </style>
 
     <?php
-    include("sql_connect.php");
+   require_once("sql_connect.php");
 
     echo "<table align='center' border=2px  bordercolor='#1A1A1A' >";
 

@@ -23,6 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $name = $_POST['name'];//post獲得使用者名稱錶單值
 $pa = $_POST['password'];//post獲得使用者密碼單值;
+
 $sql="SELECT * FROM userdata where username='$name' and password='$pa'";
 $result=mysqli_query($connect,$sql);
 $rows=mysqli_num_rows($result);
@@ -31,8 +32,8 @@ if ($rows) {
    
      $_SESSION["login"]=$name;
     // echo "登入成功";
+    header("location:inquire.php");
    
-  header("location:http://127.0.0.1/myproject/myphp.php");
 } 
 else
  {

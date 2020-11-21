@@ -2,16 +2,31 @@
 <html>
 
 <head>
-    <h1 align="center">叫修紀錄查詢</h1>
+    <h1 align="center">叫修紀錄修改</h1>
     <meta charset="utf-8">
 </head>
 
-<body bgcolor="#48D1CC" 　text="#0000EE">
-    <title>叫修紀錄查詢</title>
+<body bgcolor='pink' 　text="#0000EE">
+<?php 
+  session_start();
+   if(!isset($_SESSION["login"]) || ($_SESSION["login"]==""))
+  { 
+ 
+   
+    header("Location:login.php");
+  }
+  else{};
+?>
+    <title>叫修紀錄修改</title>
     <a href="http://127.0.0.1/myproject/myphp.php">
-        <img src="129.png" width="100px" height="60px">
+    <input type="button" name="modify" value="新增叫修">
     </a>
-    <input type="button" name="modify" value="修改資料">
+    <a href="http://127.0.0.1/myproject/inquire.php">
+    <input type="button" name="modify" value="回查詢首頁">
+    </a>
+    <a href="http://127.0.0.1/myproject/logout.php">
+    <input type="button" value="登出"> 
+    </a>
     <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
 
 
@@ -39,11 +54,8 @@
 
     <?php
    
-   include("sql_connect.php");
-    $id=$_COOKIE["id"];
-    $sql_id="SELECT * from fix where id=$id ";
+   require_once("sql_connect.php");
     echo "<table align='center' border=2px  bordercolor='#1A1A1A' >";
-
     echo '<br>';
     
 if($_SERVER["REQUEST_METHOD"] == "POST")
@@ -97,7 +109,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $solution=$row[4];
         $remark=$row[5];
         $engineer=$row[6];
-        echo $id."<br>" ;
             echo "<tr><form  method=POST action=update.php>";
             echo "<td width='150' align='center'><input type='text' name='sh_date' value='$date'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_name' value='$shopname'></td>";

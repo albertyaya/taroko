@@ -2,7 +2,7 @@
 
 require_once("sql_connect.php");
 
- $id=$_COOKIE["id"];
+         $id=$_POST['id'];
          $sh_date=$_POST['sh_date'];
          $sh_name=$_POST['sh_name'];
          $sh_problem=$_POST['sh_problem'];
@@ -10,13 +10,17 @@ require_once("sql_connect.php");
          $sh_remark=$_POST['sh_remark'];
          $sh_engineer=$_POST['sh_engineer'];
          $submit=$_POST['submit'];
+        // echo $id;
          if($submit=='修改')
          {
-              $sql="UPDATE 'fix' set date1='$sh_date',shopname='$sh_name',problem='$sh_problem',solution='$sh_solution',remark='$sh_remark',engineer='$sh_engineer' where id='$id' ";
+              $sql="UPDATE fix set date1='$sh_date',shopname='$sh_name',problem='$sh_problem',solution='$sh_solution',remark='$sh_remark',engineer='$sh_engineer' where id='$id' ";
               ECHO "修改成功";    
         }
         else if($submit=='刪除')
         {
             $sql="DELETE from fix where id='$id'";
+            echo "刪除成功";
         }
+        $result=mysqli_query($connect,$sql);
+        
 ?>

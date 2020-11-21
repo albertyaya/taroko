@@ -13,7 +13,7 @@
 
 
 <?php 
-include("user_connect.php");
+require_once("user_connect.php");
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $name=$_POST['name'];

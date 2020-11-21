@@ -43,10 +43,6 @@
                 <label for ="remark"><h3>備註:</h3></label>
                 <textarea name="remark" rows="5" cols="40" placeholder="ex:借給店櫃的設備" ></textarea><br>
                 </div>
-               <!-- <div class="Data-Title">
-                <input type="file" name="filename" size="30" value="上傳檔案" multiple></br>
-                </div>
-               -->
                 
                <div class="engineer">
                    <b>工程師:</b>

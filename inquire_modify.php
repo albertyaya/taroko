@@ -11,9 +11,7 @@
     <a href="http://127.0.0.1/myproject/myphp.php">
         <img src="129.png" width="100px" height="60px">
     </a>
-    <a href="http://127.0.0.1/myproject/inquire_modify.php">
     <input type="button" name="modify" value="修改資料">
-    </a>
     <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
 
 
@@ -40,14 +38,16 @@
     </style>
 
     <?php
-    include("sql_connect.php");
-
+   
+   include("sql_connect.php");
+    $id=$_COOKIE["id"];
+    $sql_id="SELECT * from fix where id=$id ";
     echo "<table align='center' border=2px  bordercolor='#1A1A1A' >";
 
     echo '<br>';
-
+    
 if($_SERVER["REQUEST_METHOD"] == "POST")
-{
+{  
     $shopname = $_POST['search'];
     $date1 = $_POST['from_date'];
     $date2 = $_POST['to_date'];
@@ -81,27 +81,42 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
     
-    echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>工程師</th></tr>";
+    echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>工程師</th><th width='150'>功能</th></tr>";
     if (!mysqli_num_rows($result)) {
         die('0筆資料');
     }
     $i = 1;
+    
     //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
-    while ($row = mysqli_fetch_assoc($result))
-    {
+    while ($row = mysqli_fetch_row($result)) 
+    { $i++;
+        $id=$row[0];
+        $date=$row[1];
+        $shopname=$row[2];
+        $problem=$row[3];
+        $solution=$row[4];
+        $remark=$row[5];
+        $engineer=$row[6];
+        echo $id."<br>" ;
+            echo "<tr><form  method=POST action=update.php>";
+            echo "<td width='150' align='center'><input type='text' name='sh_date' value='$date'></td>";
+            echo "<td width='150' align='center'><input type='text' name='sh_name' value='$shopname'></td>";
+            echo "<td width='150' align='center'><input type='text' name='sh_problem' value='$problem'></td>";
+            echo "<td width='150' align='center'><input type='text' name='sh_solution' value='$solution'></td>";
+            echo "<td width='150' align='center'><input type='text' name='sh_remark' value='$remark'></td>";
+            echo "<td width='150' align='center'><input type='text' name='sh_engineer' value='$engineer'></td>";
+            echo "<td width='150' align='center'><input type='submit' name='submit' value='修改'>
+            <input type='submit' name='submit' value='刪除'>
+            <input type='hidden' name='id' value='$id'> </td>";
+            echo "</tr></form>";
+     }
+     
+    
+        
+        
       
+        
        
-        if ($i % 2 == 1) {
-            echo "<tr class='odd'>";
-            echo "<td width='150' align='center'>" . $row["date1"] . "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200'>" . $row["problem"] . "</td><td width='200'>" . $row["solution"] . "</td><td width='200'>" . $row["remark"] . "</td><td width='150' align='center'>" . $row["engineer"] . "</td>";
-            echo "</tr>";
-        } else {
-            echo "<tr class='even'>";
-            echo "<td width='150' align='center'>" . $row["date1"] . "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200'>" . $row["problem"] . "</td><td width='200'>" . $row["solution"] . "</td><td width='200'>" . $row["remark"] . "</td><td width='150' align='center'>" . $row["engineer"] . "</td>";
-            echo "</tr>";
-        }
-        $i++;
-    }
     $i=$i-1;
     echo "<div align=center>總共".$i."資料</div>";
     echo "<br>";

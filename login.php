@@ -16,52 +16,30 @@
 
 <?PHP
 session_start();
-function jumpWeb()
-{
-   echo "
-  <script>
-  setTimeout(function(){window.location.href='login.html';},1000);
-  </script>";
-//如果錯誤使用js 1秒後跳轉到登入頁面重試;
- //header('Location:http://127.0.0.1/myproject/login.html');
-}
 
-
-include("user_connect.php");
+require_once("user_connect.php");
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $name = $_POST['name'];//post獲得使用者名稱錶單值
 $pa = $_POST['password'];//post獲得使用者密碼單值;
 $sql="SELECT * FROM userdata where username='$name' and password='$pa'";
-$result=sqli_query($connect,$sql);
-$rows=sqli_num_rows($result);
+$result=mysqli_query($connect,$sql);
+$rows=mysqli_num_rows($result);
 echo $rows[0];
 if ($rows) {
-  
    
-
-
-//$sql = "select * from userdata where username = '$name' and password='$pa'";//檢測資料庫是否有對應的username和password的sql
-//$result=mysqli_query($connect, $sql);//執行sql
-
-//if(mysqli_num_rows($result))//0 false 1 true
-//{
-     
-     
      $_SESSION["login"]=$name;
     // echo "登入成功";
-     echo "
-  <script>
-  setTimeout(function(){window.location.href='myphp.php';},0);
-  </script>";
+   
+  header("location:http://127.0.0.1/myproject/myphp.php");
 } 
 else
  {
     if($name==''||$pa=='') //如果使用者名稱或密碼有空
     { echo "<font color='red'>帳號或密碼不完整 請重新輸入！</font>";}
     else echo "<font color='red'>帳號或密碼錯誤 請重新輸入！</font>";
-   // jumpWeb();
+   
  }
  }
 ?>

@@ -55,6 +55,8 @@
                         
                     </select>
                     </div>
+                   <label for ="contract"><h3>合約到期日:</h3></label>
+                <input type="date"  name="contract"  ><br>
         </div>
     
     </div>  

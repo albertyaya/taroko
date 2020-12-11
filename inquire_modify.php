@@ -11,8 +11,6 @@
   session_start();
    if(!isset($_SESSION["login"]) || ($_SESSION["login"]==""))
   { 
- 
-   
     header("Location:login.php");
   }
   else{};
@@ -27,6 +25,7 @@
     <a href="http://127.0.0.1/myproject/logout.php">
     <input type="button" value="登出"> 
     </a>
+
     <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
 
 
@@ -93,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
     
-    echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>工程師</th><th width='150'>功能</th></tr>";
+    echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='200'>問題</th><th width='200'>解法</th><th width='150'>備註</th><th width='150'>撤櫃時間</th><th width='150'>工程師</th><th width='150'>功能</th></tr>";
     if (!mysqli_num_rows($result)) {
         die('0筆資料');
     }
@@ -109,12 +108,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $solution=$row[4];
         $remark=$row[5];
         $engineer=$row[6];
+        $contract=$row[7];
             echo "<tr><form  method=POST action=update.php>";
             echo "<td width='150' align='center'><input type='text' name='sh_date' value='$date'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_name' value='$shopname'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_problem' value='$problem'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_solution' value='$solution'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_remark' value='$remark'></td>";
+            echo "<td width='150' align='center'><input type='text' name='sh_contract' value='$contract'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_engineer' value='$engineer'></td>";
             echo "<td width='150' align='center'><input type='submit' name='submit' value='修改'>
             <input type='submit' name='submit' value='刪除'>

@@ -9,13 +9,14 @@ $problem=$_POST['problem'];
 $solution=$_POST['solution'];
 $engineer=$_POST['address'];
 $remark=$_POST['remark'] ?? '';
+$contract=$_POST['contract'];
 /*if ($remark) {
   $remark = '';
 }
 依樣的意思*/
 
 
-$insertSql = "INSERT INTO fix (shopname,problem,solution,remark,engineer) VALUES ('{$shopname}','{$problem}','{$solution}','{$remark}','{$engineer}')" ;
+$insertSql = "INSERT INTO fix (shopname,problem,solution,remark,engineer,contract) VALUES ('{$shopname}','{$problem}','{$solution}','{$remark}','{$engineer}','{$contract}')" ;
 
 $status =mysqli_query($connect,$insertSql);//呼叫query方法(SQL語法)
  //$status =$connect->query($insertSql);

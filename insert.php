@@ -2,9 +2,11 @@
 <?php
 
 require_once("sql_connect.php");
+
  
-$datetime=date("Y-m-d H:i:s",time()+6*60*60);
+$date1=$_POST['date1'];
 $shopname=$_POST['shopname'];
+$problem_sort=$_POST['problem_sort'];
 $problem=$_POST['problem'];
 $solution=$_POST['solution'];
 $engineer=$_POST['address'];
@@ -16,11 +18,13 @@ $contract=$_POST['contract'];
 依樣的意思*/
 
 
-$insertSql = "INSERT INTO fix (shopname,problem,solution,remark,engineer,contract) VALUES ('{$shopname}','{$problem}','{$solution}','{$remark}','{$engineer}','{$contract}')" ;
-
-$status =mysqli_query($connect,$insertSql);//呼叫query方法(SQL語法)
+$insertSql = "INSERT INTO fix (date1,shopname,problem,solution,remark,engineer,sort) VALUES (?,?,?,?,?,?,?)" ;
+//$insertSql="select * from fix ";
+//echo $insertSql;
+$params=array($date1,$shopname,$problem,$solution,$remark,$engineer,$problem_sort);
+$statu =sqlsrv_query($conn,$insertSql,$params);//呼叫query方法(SQL語法)
  //$status =$connect->query($insertSql);
-if ($status)
+if ($statu)
 {
   echo '新增成功'.'<br>';
   
@@ -29,7 +33,7 @@ if ($status)
 } 
 else 
 {
-    echo "錯誤: " . $insertSql . "<br>" . $connect->error;
+    echo "錯誤 ";
 }
 ?>
 

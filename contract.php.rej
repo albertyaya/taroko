@@ -1,0 +1,96 @@
+diff a/contract.php b/contract.php	(rejected hunks)
+@@ -64,71 +64,73 @@
+     $shopname = $_POST['search'];
+     $date1 = $_POST['from_date'];
+     $date2 = $_POST['to_date'];
+-   // $botton=$_POST['week'];
+    
+-
+    
+    
++   $button1='';
++   $button2='';
++   //button要宣告在外面
+    $where = [];
+-   if(array_key_exists('button1', $_POST)) 
++   //if(array_key_exists('button1',$_POST) )
++   if(isset($_POST['button1'])) 
+    { 
+-    $button1= "DATEDIFF(date1,NOW())<7 AND DATEDIFF(date1,NOW())>=0";
++    $button1= "DATEDIFF(dd,getdate(),contract)<=7 AND DATEDIFF(dd,getdate(),contract)>0";
+     $where[]=$button1;
+    } 
+-   else if(array_key_exists('button2', $_POST)) 
++   else if(isset($_POST['button2'])) 
+    { 
+-    $button2= "DATEDIFF(date1,NOW())<30 AND DATEDIFF(date1,NOW())>=0";
++    $button2= "DATEDIFF(dd,getdate(),contract)<=30 AND DATEDIFF(dd,getdate(),contract)>0";
+     $where[]=$button2;
+    } 
+    
+    else if($date1&&$date2)
+-    {   $nextDate =  date('Y-m-d', strtotime("$date2 +1 day"));
+-        $string ="(date1 >= '$date1' and date1 <= '$nextDate' )";
++    {   $nextDate =  date('Y-m-d', strtotime("$date2+ 1 day"));
++        $string ="(contract >= '$date1' and contract < '$nextDate' )";
+         $where[]=$string;
+     }
+ 
+     else if ($date1) {
+-        $nextDate =  date('Y-m-d', strtotime("$date1 +1 day"));
+-        $string = " date1 >= '$date1' and date1 < '$nextDate'  ";
++        $nextDate =  date('Y-m-d', strtotime("$date1 + 1 day"));
++        $string = "contract >= '$date1' and contract < '$nextDate'  ";
+         $where[] = $string;
+     }
++
+     if ($shopname) {
+         $where[] = "(shopname like '%$shopname%')";
+     }
+ 
+     $where = implode('and', $where);
+     
+-    $selectSql = "SELECT * FROM fix where {$where}  ORDER BY date1 ASC";
++    $selectSql = "SELECT * FROM fix where {$where}  ORDER BY contract ASC";
+ 
+     //echo $selectSql;
+-    $result = mysqli_query($connect, $selectSql);
+-    if ($button1=='' &&  $shopname == '' && $date1 == '' && $button2=='') {
++    $result =sqlsrv_query($conn, $selectSql);
++    if ($button1==''&& $button2=='' &&  $shopname == '' && $date1 == '') {
+         die('name is empty');
+     }
+ 
+-    echo "<tr align='center' background='#000000'><th width='150'>日期</th><th width='150'>店櫃</th><th width='150'>撤櫃時間</th></tr>";
+-    if (!mysqli_num_rows($result)) {
+-        die('0筆資料');
+-    }
++    echo "<tr align='center' background='#000000'><th width='150'>裝機日期</th><th width='150'>店櫃名稱</th><th width='150'>撤櫃時間</th></tr>";
++   
+     $i = 1;
+     //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
+     
+-    while ($row = mysqli_fetch_assoc($result))
++    while ($row = sqlsrv_fetch_array($result))
+     {
+-        $date=date('Y-m-d',strtotime($row['date1']));
++       // $date=date('Y-m-d',strtotime($row['date1']));
+        
+         if ($i % 2 == 1) {
+             echo "<tr class='odd'>";
+-            echo "<td width='150' align='center'>" . $date . "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200' align='center'>" . $row["contract"] . "</td>";
++            echo "<td width='150' align='center'>" . $row["date1"] .  "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200' align='center'>" . $row["contract"] . "</td>";
+             echo "</tr>";
+         } else {
+             echo "<tr class='even'>";
+-            echo "<td width='150' align='center'>" . $date . "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200' align='center'>" . $row["contract"] . "</td>";
++            echo "<td width='150' align='center'>"  . $row["date1"] . "</td><td width='150' align='center'>" . $row["shopname"] . "</td><td width='200' align='center'>" . $row["contract"] . "</td>";
+             echo "</tr>";
+         }
+         $i++;
+     }
+     $i=$i-1;
++    
+     echo "<div align=center>總共".$i."資料</div>";
+     echo "<br>";
+ 

@@ -104,7 +104,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $where = implode('and', $where);
     $selectSql = "SELECT * FROM fix where {$where}  ORDER BY date1 ASC";
     //echo $selectSql;
-    $result =sqlsrv_query($conn, $selectSql);
+    $result =mysqli_query($connect, $selectSql);
     //SELECT * FROM fix where (shopname like '%糖果森林%' or engineer like '%糖果森林%') and ( date1 >= '2020-11-06' and date1 < '2020-11-07' )
     //需要括號，不然會變成shopname like '%糖果森林%' or (engineer like '%糖果森林%' and date1 >= '2020-11-06' and date1 < '2020-11-07' )
     //前面成立後面就不會判斷了
@@ -119,7 +119,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
    
     
     //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
-    while ($row = sqlsrv_fetch_array($result))
+    while ($row = mysqli_fetch_assoc($result))
     {
       
        

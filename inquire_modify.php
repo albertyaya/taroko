@@ -75,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $where = implode('and', $where);
     $selectSql = "SELECT * FROM fix where {$where}";
     //echo $selectSql;
-   $result =sqlsrv_query($conn, $selectSql);
+   $result =mysqli_query($connect, $selectSql);
     
     //SELECT * FROM fix where (shopname like '%糖果森林%' or engineer like '%糖果森林%') and ( date1 >= '2020-11-06' and date1 < '2020-11-07' )
     //需要括號，不然會變成shopname like '%糖果森林%' or (engineer like '%糖果森林%' and date1 >= '2020-11-06' and date1 < '2020-11-07' )
@@ -85,12 +85,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
     
-    echo "<tr align='center' background='#000000'><th width='150'>叫修日期</th><th width='150'>店櫃名稱</th><th width='200'>報修問題</th><th width='200'>處理方式</th><th width='150'>備註</th><th width='150'>問題分類</th><th width='150'>處理人員</th><th width='150'>功能</th></tr>";
+    echo "<tr align='center' background='#000000'><th width='150'>叫修日期</th><th width='150'>店櫃名稱</th><th width='200'>報修問題</th><th width='200'>處理方式</th><th width='150'>備註</th><th width='150'>撤櫃時間</th><th width='150'>問題分類</th><th width='150'>處理人員</th><th width='150'>功能</th></tr>";
    
     $i = 1;
     
     //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
-    while ($row = sqlsrv_fetch_array($result)) 
+    while ($row = mysqli_fetch_row($result)) 
     { $i++;
         $id=$row[0];
         $date=$row[1];
@@ -99,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         $solution=$row[4];
         $remark=$row[5];
         $engineer=$row[6];
-    //  $contract=$row[7];
+        $contract=$row[7];
         $sort=$row[8];
             echo "<tr><form  method=POST action=update.php>";
             echo "<td width='150' align='center'><input type='text' name='sh_date' value='$date'></td>";
@@ -107,7 +107,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             echo "<td width='150' align='center'><input type='text' name='sh_problem' value='$problem'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_solution' value='$solution'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_remark' value='$remark'></td>";
-          //echo "<td width='150' align='center'><input type='text' name='sh_contract' value='$contract'></td>";
+            echo "<td width='150' align='center'><input type='text' name='sh_contract' value='$contract'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_sort' value='$sort'></td>";
             echo "<td width='150' align='center'><input type='text' name='sh_engineer' value='$engineer'></td>";
             echo "<td width='150' align='center'><input type='submit' name='submit' value='修改'>

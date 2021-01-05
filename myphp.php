@@ -27,9 +27,8 @@
    
     
         <div class="Data-Title">
-            <div class=date>
-                <label for ="date1"><b style="font-size: large;">日期:</b></label>
-                <input type="text"  name="date1" size="28" maxlength="16"  placeholder="請輸入日期 ex:2021-01-01" required><br></div>
+           
+        
                 <label for ="shopname"><b style="font-size: large;">櫃位名稱:</b></label>
                 <input type="text"  name="shopname" size="28" maxlength="16"  placeholder="名稱最多16個字元" required><br>
                 <div class="sort">
@@ -74,8 +73,8 @@
                 <label for ="remark"><b style="font-size: large;">備註:</b></label>
                 <textarea name="remark" rows="5" cols="40" placeholder="ex:借給店櫃的設備" ></textarea><br>
                 </div>
-                <label for ="date1"><b style="font-size: large;">撤櫃日期:</b></label>
-                <input type="text"  name="date1" size="28" maxlength="16"  placeholder="請輸入撤櫃時間 ex:2021-01-01" required><b style="font-size: large;">(有裝機請輸入撤櫃時間)</b><br></div>
+                <label for ="contract"><b style="font-size: large;">撤櫃日期:</b></label>
+                <input type="date"  name="contract" ><b style="font-size: large;">(有裝機請輸入撤櫃時間)</b><br></div>
                <div class="engineer">
                    <b style="font-size: large;">處理人員: &nbsp</b>
                     <select name="address" >
@@ -98,10 +97,7 @@
             </div> 
 
     <style type="text/css">
-           .date{
-            margin:10px 36;
-            width:1000px;
-           }
+          
            .option{
             margin:5px 0;
             width:1500px;

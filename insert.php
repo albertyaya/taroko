@@ -23,14 +23,9 @@ $status=mysqli_query($connect,$insertSql);//呼叫query方法(SQL語法)
 if ($status)
 {
   echo '新增成功'.'<br>';
-  
-  header("location:http://127.0.0.1/myproject/inquire.php");
-  
+  header("Location:/myproject/inquire.php");
 } 
-else 
-{
-    echo "錯誤 ";
-}
+echo "錯誤 ";
 ?>
 
 

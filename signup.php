@@ -14,33 +14,29 @@
 
 <?php 
 require_once("user_connect.php");
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
+if($_SERVER["REQUEST_METHOD"] == "POST") {
 $name=$_POST['name'];
 $password=$_POST['password'];
+if (strlen($name) < 6 || strlen($password) < 6) {
+    echo "<font color=red>帳號密碼輸入不完整！</font>";
+    exit;
+}
 $username="SELECT * from userdata where username='{$name}'";
 
 //$result=sqli_query($username);
 
 $status=mysqli_query($connect,$username);
 $row=mysqli_fetch_row($status);
-echo $row[1];
-if(!$name||!$password)
-{
-  echo "<font color=red>帳號密碼輸入不完整！</font>";
-}
- else if($row[1]==$name)
- {
+
+if ($row) {
     echo "<font color=red> 帳號已有人使用！</font>";
- }
-  else if($name&&$password&&$row[1]!=$name) 
-  {$q="INSERT INTO userdata(username,password) values ('{$name}','{$password}')";//向資料庫插入表單傳來的值的sql
-    if(mysqli_query($connect,$q)) 
-    {
-      echo "<font color=blue>註冊成功</font>";
-      echo '<meta http-equiv=REFRESH CONTENT=1;url=inquire.php>';
-    }
-  }   
+    exit;
+}
+
+$q="INSERT INTO userdata(username,password) values ('{$name}','{$password}')";//向資料庫插入表單傳來的值的sql
+
+echo "<font color=blue>註冊成功</font>";
+echo '<meta http-equiv=REFRESH CONTENT=1;url=inquire.php>';
  
 }
 ?>

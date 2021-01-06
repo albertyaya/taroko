@@ -30,13 +30,13 @@
            
         
                 <label for ="shopname"><b style="font-size: large;">櫃位名稱:</b></label>
-                <input type="text"  name="shopname" size="28" maxlength="16"  placeholder="名稱最多16個字元" required><br>
-                <div class="sort">
+                <input type="text"  name="shopname" size="42" maxlength="16"  placeholder="名稱最多16個字元" required><br>
+                
                
                 <div class=option>
                 <b style="font-size: large;">問題類型: &nbsp</b>
                 <select name="problem_sort" > 
-                
+                        <option value="刷卡機硬體故障">裝撤機</option>
                         <option value="刷卡機硬體故障">刷卡機硬體故障</option>
                         <option value="刷卡機網路異常">刷卡機網路異常</option>
                         <option value="收銀機網路異常">收銀機網路異常</option>
@@ -58,7 +58,7 @@
                         <option value="與資訊部無關叫修">與資訊部無關叫修</option>
                         
                 </select><br></div>
-                </div>
+
                 <div class="problem">
                 <label for ="problem"><b style="font-size: large;">報修內容:</b></label>
                 <textarea name="problem" rows="5" cols="40"  required></textarea><br>
@@ -73,51 +73,46 @@
                 <label for ="remark"><b style="font-size: large;">備註:</b></label>
                 <textarea name="remark" rows="5" cols="40" placeholder="ex:借給店櫃的設備" ></textarea><br>
                 </div>
+
                 <label for ="contract"><b style="font-size: large;">撤櫃日期:</b></label>
                 <input type="date"  name="contract" ><b style="font-size: large;">(有裝機請輸入撤櫃時間)</b><br></div>
-               <div class="engineer">
+                
+                <div class="engineer">
                    <b style="font-size: large;">處理人員: &nbsp</b>
                     <select name="address" >
                         <option value="正翰"> 正翰 </option>
                         <option value="啟倫"> 啟倫 </option>
                         <option value="柏文"> 柏文 </option>
-                        <option value="書翰"> 書翰 </option>
-                        
-                        
+                        <option value="書翰"> 書翰 </option>   
                     </select>
-                    
-                 <!--  <label for ="contract"><b>合約到期日:</b></label>
-                <input type="date"  name="contract"  ><br>-->
-        
-    
-    </div>  
+                 </div>  
             <div class="Data-submit">
             <input type="submit" name="submit" value="完成">
+            
             <input type="RESET" name="RESET" value="清除">
             </div> 
-
+        </div>
     <style type="text/css">
-          
-           .option{
-            margin:5px 0;
-            width:1500px;
-            
-           }
-            .Data-Title{
+          .Data-Title{
                 width:1000px;
-                display: block;
-                margin:5px 0;
-                
+                margin:10px 500;
                 text-align:left;
             }
+            .option{
+            margin:5px 0;
+            width:1500px;
+            align:center;
+           }
+            
         .Data-submit{
-                text-align: right ;
+            text-align:right;
                 width:280px;
+                margin:10px 500;
         }
         label {
                 display: inline-block;
                 
-                text-align:left;
+                text-align:center;
                 margin-right: 10px;
                
         }
@@ -127,9 +122,12 @@
 
         }
         .engineer{
-            margin:10px 0;
+            
+            
             width:1000px;
-            font:30px ;
+            text-align:center;
+            margin:10px 71;
+        }
         }
         .sort{
             margin:10px 0;

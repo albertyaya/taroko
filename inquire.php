@@ -53,7 +53,7 @@
 
     <?php
    require_once("sql_connect.php");
-
+   
     echo "<table align='center' border=2px  bordercolor='#1A1A1A' >";
 
     echo '<br>';
@@ -114,12 +114,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
     
     echo "<tr align='center' background='#000000'><th width='150'>叫修日期</th><th width='150'>店櫃名稱</th><th width='200'>報修問題</th><th width='200'>處理方式</th><th width='150'>備註</th><th width='200'>問題分類</th><th width='150'>處理人員</th></tr>";
-    
+    if (!mysqli_num_rows($result)) {
+        die('0筆資料');
+    }
     $i = 1;
-   
-    
     //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
-    while ($row = mysqli_fetch_assoc($result))
+    while ($row = mysqli_fetch_array($result))
     {
       
        
@@ -138,7 +138,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     echo "<div align=center>總共".$i."筆資料</div>";
     echo "<br>";
 }  
-   
+    
     ?>
 
 <META HTTP-EQUIV="REFRESH" CONTENT="600;URL=logout.php"><!--10分鐘後自動登出-->

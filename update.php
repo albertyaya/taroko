@@ -11,7 +11,7 @@ require_once("sql_connect.php");
          $sh_sort=$_POST['sh_sort'];
          $sh_engineer=$_POST['sh_engineer'];
          $submit=$_POST['submit'];
-        // $sh_contract=$_POST['sh_contract'];
+         $sh_contract=$_POST['sh_contract'];
         // echo $id;
          if($submit=='修改')
          {   if($sh_problem==''||$sh_name==''|| $sh_solution==''){}
@@ -26,6 +26,6 @@ require_once("sql_connect.php");
             echo "刪除成功";
 
         }
-        $result=sqlsrv_query($conn,$sql);
+        $result=mysqli_query($connect,$sql);
         header("location:inquire_modify.php");
 ?>

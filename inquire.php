@@ -63,7 +63,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $shopname = $_POST['search'];
     $date1 = $_POST['from_date'];
     $date2 = $_POST['to_date'];
-    
+    $getdate1=$_GET['date1'];
+    echo  $getdate1;
     if(isset($_post['loadout_excel']))
     {
         $headers=array("日期","店櫃","問題","解法","備註","問題分類","工程師");

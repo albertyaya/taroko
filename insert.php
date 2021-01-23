@@ -24,7 +24,7 @@ if ($status)
 {
   echo '新增成功'.'<br>';
   
-  header("location:http://127.0.0.1/myproject/inquire.php");
+  header("location:/myproject/inquire.php?date1='2021-0117'");
   
 } 
 else 

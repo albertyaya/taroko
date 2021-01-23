@@ -21,20 +21,20 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <ul class="nav">
-                    <li class="nav-item">
-                        <input class="form-control " type="search" placeholder="Search" aria-label="Search">
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
+                <form>
+                    <ul class="nav">
+                        <li class="nav-item" style="margin-left:10px;">
+                            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="from_date">
+                            to <input type="date" name="to_date"></br>
+                        </li>
+                        <li class="nav-item" style="margin-left:10px;">
+                            <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                        </li>
+                        <li class="nav-item">
+                            <button type="submit" class="btn btn-primary btn-sm" style="margin-left:10px;">搜尋</button>
+                        </li>
+                    </ul>
+                </form>
             </div>
             <div class="card-body">
                 <table class="table table-bordered">
@@ -61,7 +61,7 @@
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
+                            <td>Larry the Bird</td>
                             <td>@twitter</td>
                         </tr>
                     </tbody>

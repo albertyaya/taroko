@@ -2,14 +2,13 @@
 <?php
 
 require_once("sql_connect.php");
-
+$date=$_POST['date'];
 $shopname=$_POST['shopname'];
 $problem_sort=$_POST['problem_sort'];
 $problem=$_POST['problem'];
 $solution=$_POST['solution'];
 $engineer=$_POST['address'];
 $remark=$_POST['remark'] ?? '';
-$contract=$_POST['contract'];
 echo $contract;
 /*if ($remark) {
   $remark = '';
@@ -17,7 +16,7 @@ echo $contract;
 依樣的意思*/
 
 
-$insertSql = "INSERT INTO fix (shopname,problem,solution,remark,engineer,contract,sort) VALUES ('{$shopname}','{$problem}','{$solution}','{$remark}','{$engineer}','{$contract}','{$problem_sort}')" ;
+$insertSql = "INSERT INTO fix (date1,shopname,problem,solution,remark,engineer,sort) VALUES ('{$date}','{$shopname}','{$problem}','{$solution}','{$remark}','{$engineer}','{$problem_sort}')" ;
 echo $insertSql;
 $status=mysqli_query($connect,$insertSql);//呼叫query方法(SQL語法)
 if ($status)

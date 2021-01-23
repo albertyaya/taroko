@@ -28,7 +28,7 @@
 
     <form method="POST" action=" <?php echo $_SERVER['PHP_SELF']; ?>">
         <div class="search_center">
-            <input type="date" name="from_date" >
+            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="from_date" >
             to <input type="date" name="to_date" ></br>
             <input type="search" name="search" placeholder="輸入關鍵字" size="60">
             <input type="submit" value="搜尋"></br>
@@ -63,8 +63,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $shopname = $_POST['search'];
     $date1 = $_POST['from_date'];
     $date2 = $_POST['to_date'];
-    $getdate1=$_GET['date1'];
-    echo  $getdate1;
+    
+    
     if(isset($_post['loadout_excel']))
     {
         $headers=array("日期","店櫃","問題","解法","備註","問題分類","工程師");

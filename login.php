@@ -23,26 +23,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $name = $_POST['name'];//post獲得使用者名稱錶單值
 $pa = $_POST['password'];//post獲得使用者密碼單值;
+if($name==''||$pa=='')
+{
+    echo "<font color='red'>帳號密碼不完整，請重新輸入！</font>";
+    exit;
+}
 
 $sql="SELECT * FROM userdata where username='$name' and password='$pa'";
 $result=mysqli_query($connect,$sql);
 $rows=mysqli_num_rows($result);
-echo $rows[0];
-if ($rows) {
-   
-     $_SESSION["login"]=$name;
-    // echo "登入成功";
-    header("location:inquire.php");
-   
-} 
+if(!$rows)
+{
+  echo "<font color='red'>帳號或密碼錯誤，請重新輸入！</font>";
+}
 else
- {
-    if($name==''||$pa=='') //如果使用者名稱或密碼有空
-    { echo "<font color='red'>帳號或密碼不完整 請重新輸入！</font>";}
-    else echo "<font color='red'>帳號或密碼錯誤 請重新輸入！</font>";
-   
- }
- }
+{
+$_seesion["login"]=$name;
+header("location:inquire.php");}
+}
 ?>
 </fieldset>
 <input type="submit" name="submit" value="登入">

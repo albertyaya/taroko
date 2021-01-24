@@ -4,14 +4,12 @@
 <head ><h1 align="center">新增叫修紀錄</h1></head>
 <body bgcolor="#02C874"　text="#0000EE"  >
 <?php 
-  /*session_start();
+  session_start();
    if(!isset($_SESSION["login"]) || ($_SESSION["login"]==""))
   { 
- 
-  
     header("Location:login.php");
   }
-  else{};*/
+  
 ?>
  <title >新增叫修紀錄</title>
  <a href="/myproject/inquire.php">

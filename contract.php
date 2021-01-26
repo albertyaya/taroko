@@ -67,17 +67,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
    // $botton=$_POST['week'];
    
 
-   
-   
+   $button1= " ";
+   $button2= " ";
    $where = [];
    if(array_key_exists('button1', $_POST)) 
    { 
-    $button1= "DATEDIFF(date1,NOW())<7 AND DATEDIFF(date1,NOW())>=0";
+    $button1= "DATE_SUB(CURDATE(), INTERVAL 7 DAY) <=date1";
     $where[]=$button1;
    } 
    else if(array_key_exists('button2', $_POST)) 
    { 
-    $button2= "DATEDIFF(date1,NOW())<30 AND DATEDIFF(date1,NOW())>=0";
+    $button2= "DATE_SUB(CURDATE(), INTERVAL 30 DAY) <=date1";
     $where[]=$button2;
    } 
    

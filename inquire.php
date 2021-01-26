@@ -6,20 +6,17 @@
     <meta charset="utf-8">
 </head>
 
-<body bgcolor="#48D1CC" 　text="#0000EE">
+<body bgcolor="	#FFB5B5" 　text="#0000EE">
     <title>叫修紀錄查詢</title>
-    <a href="http://127.0.0.1/myproject/myphp.php">
-    <input type="button" name="button" value="新增叫修">
+    <a href="http://127.0.0.1/myproject/myphp.php" >
+    <input type="button" name="button" value="新增叫修" style="font-size: x-large">
     </a>
     <a href="http://127.0.0.1/myproject/inquire_modify.php">
-    <input type="button" name="button" value="修改資料">
+    <input type="button" name="button" value="修改資料" style="font-size: x-large">
     </a>
-    <a href="http://127.0.0.1/myproject/contract.php">
-    <input type="button" name="contract" value="撤櫃查詢">
-    </a>
-    <input type="submit" name="loadout_excel" value="匯出excel">
+    <input type="submit" name="loadout_excel" value="匯出excel" style="font-size: x-large">
     <div class="logout">
-    <a href="http://127.0.0.1/myproject/logout.php" >
+    <a href="http://127.0.0.1/myproject/logout.php" style="font-size: x-large" >
     <input type="button" value="登出">
     </div>
 </a>
@@ -28,10 +25,13 @@
 
     <form method="POST" action=" <?php echo $_SERVER['PHP_SELF']; ?>">
         <div class="search_center">
-            <input type="date" value="<?php echo date('Y-m-d'); ?>" name="from_date" >
-            to <input type="date" name="to_date" ></br>
-            <input type="search" name="search" placeholder="輸入關鍵字" size="60">
-            <input type="submit" value="搜尋"></br>
+        <input type="submit" name="button1" value="近一周紀錄" style="font-size: x-large" >
+	    <input type="submit" name="button2" value="近一個月紀錄" style="font-size: x-large"></br>
+        <br>
+            <input type="date"  name="from_date" style="font-size: x-large" >
+            to <input type="date" value="<?php echo date('Y-m-d'); ?>" name="to_date" style="font-size: x-large" >
+            <input type="search" name="search" placeholder="輸入關鍵字" size="" style="font-size: x-large">
+            <input type="submit" value="搜尋" style="font-size: x-large"></br>
         </div>
     </form>
     <style type="text/css">
@@ -40,15 +40,24 @@
         }
 
         .odd {
-            background: #53FF53;
+            background:	#53FF53;
         }
 
         .even {
             background: #A6FFA6;
+            
         }
         .logout{
             text-align:right;
         }
+        table {
+            border-collapse:collapse;
+            width:90%;
+        }
+        tr,td {padding:6px; border-width:3px;border-color:#FFFFFF;}
+        th,td{border-color:#FFFFFF;;padding:6px; border-width:3px;}
+        tr.heading{background:	#00DB00;}
+        body {background:pink;}
     </style>
 
     <?php
@@ -86,16 +95,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
     }
 
+    $button1= " ";
+    $button2= " ";
     $where = [];
-    if($date1&&$date2)
+    if(isset($_POST['button1']))
+    { 
+     $button1= "DATE_SUB(CURDATE(), INTERVAL 7 DAY) <=date1";
+     $where[]=$button1;
+    } 
+    else if(isset($_POST['button2'])) 
+    { 
+     $button2= "DATE_SUB(CURDATE(), INTERVAL 30 DAY) <=date1";
+     $where[]=$button2;
+    }
+    else if($date1&&$date2)
     {   $nextDate =  date('Y-m-d', strtotime("$date2+ 1 day"));
         $string ="(date1 >= '$date1' and date1 < '$nextDate' )";
         $where[]=$string;
     }
 
-    else if ($date1) {
-        $nextDate =  date('Y-m-d', strtotime("$date1 + 1 day"));
-        $string = " date1 >= '$date1' and date1 < '$nextDate'  ";
+    else if ($date2){
+        $nextDate =  date('Y-m-d', strtotime("$date2 + 1 day"));
+        $string = " date1 >= '$date2' and date1 < '$nextDate'  ";
         $where[] = $string;
     }
     if ($shopname) {
@@ -109,15 +130,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     //SELECT * FROM fix where (shopname like '%糖果森林%' or engineer like '%糖果森林%') and ( date1 >= '2020-11-06' and date1 < '2020-11-07' )
     //需要括號，不然會變成shopname like '%糖果森林%' or (engineer like '%糖果森林%' and date1 >= '2020-11-06' and date1 < '2020-11-07' )
     //前面成立後面就不會判斷了
-    if ($shopname == '' && $date1 == '') {
-        die('name is empty');
-    }
 
-    
-    echo "<tr align='center' background='#000000'><th width='150'>叫修日期</th><th width='150'>店櫃名稱</th><th width='200'>報修問題</th><th width='200'>處理方式</th><th width='150'>備註</th><th width='200'>問題分類</th><th width='150'>處理人員</th></tr>";
     if (!mysqli_num_rows($result)) {
-        die('0筆資料');
+        die("<div align=center>總共 0 筆資料</div>");
     }
+    echo "<tr class='heading' align='center' style='font-size: large'><th width='100'>叫修日期</th><th width='150'>店櫃名稱</th><th width='200'>報修問題</th><th width='200'>處理方式</th><th width='100'>備註</th><th width='150'>問題分類</th><th width='90'>處理人員</th></tr>";
+    
     $i = 1;
     //如果返回的是多條資料，函式 fetch_assoc() 將結合集放入到關聯陣列並迴圈輸出。 while() 迴圈出結果集，並輸出 Id，Rank，Name，ATK和HP 四個欄位值。
     while ($row = mysqli_fetch_array($result))
@@ -125,18 +143,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
       
        
         if ($i % 2 == 1) {
-            echo "<tr class='odd'>";
-            echo "<td align='center'>" . $row["date1"] . "</td><td align='center'>" . $row["shopname"] . "</td><td>" . $row["problem"] . "</td><td>" . $row["solution"] . "</td><td>" . $row["remark"] . "</td><td align='center'>" . $row["sort"] . "</td><td align='center'>".$row["engineer"]."</td>";
+            echo "<tr class='odd' style='font-size: large'>";
+            echo "<td align='center' >" . $row["date1"] . "</td><td align='center' >" . $row["shopname"] . "</td><td >" . $row["problem"] . "</td><td >" . $row["solution"] . "</td><td  width='100'>" . $row["remark"] . "</td><td align='center'  >" . $row["sort"] . "</td><td align='center' >".$row["engineer"]."</td>";
             echo "</tr>";
         } else {
-            echo "<tr class='even'>";
-            echo "<td align='center'>" . $row["date1"] . "</td><td align='center'>" . $row["shopname"] . "</td><td>" . $row["problem"] . "</td><td>" . $row["solution"] . "</td><td>" . $row["remark"] . "</td><td align='center'>" . $row["sort"] . "</td><td align='center'>".$row["engineer"]."</td>";
+            echo "<tr class='even' style='font-size: large'>";
+            echo "<td align='center' >" . $row["date1"] . "</td><td align='center' >" . $row["shopname"] . "</td><td>" . $row["problem"] . "</td><td >" . $row["solution"] . "</td><td  width='100'>" . $row["remark"] . "</td><td align='center'  >" . $row["sort"] . "</td><td align='center'  >".$row["engineer"]."</td>";
             echo "</tr>";
         }
         $i++;
     }
     $i=$i-1;
-    echo "<div align=center>總共".$i."筆資料</div>";
+    echo "<div align=center>總共 ".$i." 筆資料</div>";
     echo "<br>";
 }  
     

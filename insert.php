@@ -1,32 +1,30 @@
-
+﻿
 <?php
 
 require_once("sql_connect.php");
+$date=$_GET['date'];
+$problem_sort=$_GET['problem_sort'];
+$problem=$_GET['problem'];
+$solution=$_GET['solution'];
+$engineer=$_GET['address'];
+$remark=$_GET['remark'] ?? '';
+$processtime=$_GET['processtime'];
+$whether=$_GET['whether'];
 
-$shopname=$_POST['shopname'];
-$problem_sort=$_POST['problem_sort'];
-$problem=$_POST['problem'];
-$solution=$_POST['solution'];
-$engineer=$_POST['address'];
-$remark=$_POST['remark'] ?? '';
-$contract=$_POST['contract'];
-echo $contract;
-/*if ($remark) {
-  $remark = '';
-}
-依樣的意思*/
+$date1=date_create($date);
+$date2=date_format($date1,"Y/m/d");
 
+$insertSql = "INSERT INTO fix (date1,problem,solution,remark,engineer,sort,processtime,whether) VALUES ('{$date2}','{$problem}','{$solution}','{$remark}','{$engineer}','{$problem_sort}','{$processtime}','{$whether}')" ;
 
-$insertSql = "INSERT INTO fix (shopname,problem,solution,remark,engineer,contract,sort) VALUES ('{$shopname}','{$problem}','{$solution}','{$remark}','{$engineer}','{$contract}','{$problem_sort}')" ;
-echo $insertSql;
-$status=mysqli_query($connect,$insertSql);//呼叫query方法(SQL語法)
+$status=mysqli_query($connect,$insertSql);
 if ($status)
 {
-  echo '新增成功'.'<br>';
   
-  header("location:http://127.0.0.1/myproject/inquire.php");
   
-} 
+  echo "<font size=\"15\" >新增成功....</font>";
+  
+  header("Refresh:1;url=myphp.php");
+}
 else 
 {
     echo "錯誤 ";

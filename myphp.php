@@ -1,8 +1,8 @@
-
+﻿
 
 <html>
 <head ><h1 align="center">新增叫修紀錄</h1></head>
-<body bgcolor="#02C874"　text="#0000EE"  >
+<body bgcolor="#A3D1D1"　 >
 <?php 
   /*session_start();
    if(!isset($_SESSION["login"]) || ($_SESSION["login"]==""))
@@ -14,139 +14,140 @@
   else{};*/
 ?>
  <title >新增叫修紀錄</title>
- <a href="http://127.0.0.1/myproject/inquire.php">
-    <input type="button" value="回查詢首頁">
-</a>
-<a href="http://127.0.0.1/myproject/logout.php">
-    <input type="button" value="登出">
+ <a href="/inquire.php">
+    <input type="button" value="回查詢首頁" style="font-size: x-large">
 </a>
 
 
- <hr size="5" align="left" noshade width="90%" color="#1A1A1A">
- <form action="insert.php" method="post">
+
+ <hr size="5" align="left" noshade width="90%" >
+ <form action="insert.php" method="get">
    
-    
+      <table class=box>
+      <tr>
+      <td>
         <div class="Data-Title">
-           
-        
-                <label for ="shopname"><b style="font-size: large;">櫃位名稱:</b></label>
-                <input type="text"  name="shopname" size="28" maxlength="16"  placeholder="名稱最多16個字元" required><br>
-                <div class="sort">
+                <div class=date>
+                <label ><b style="font-size: x-large;" style="font-family:標楷體;">報修日期:</b></label>
+                <input type='date' name="date" style="font-size: x-large" value="<?php echo date('Y-m-d'); ?>" ><br>
+                </div>
+				
+				<div class=shopname>
+                
                
-                <div class=option>
-                <b style="font-size: large;">問題類型: &nbsp</b>
-                <select name="problem_sort" > 
-                
-                        <option value="刷卡機硬體故障">刷卡機硬體故障</option>
-                        <option value="刷卡機網路異常">刷卡機網路異常</option>
-                        <option value="收銀機網路異常">收銀機網路異常</option>
-                        <option value="骨幹網路">骨幹網路</option>
-                        <option value="網路線材異常">網路線材異常</option>
-                        <option value="收銀機主機故障">收銀機主機故障</option>
-                        <option value="一卡通異常">一卡通異常</option>
-                        <option value="讀卡機異常">讀卡機異常</option>
-                        <option value="掃描器異常">掃描器異常</option>
-                        <option value="發票機異常">發票機異常</option>
-                        <option value="UPS異常">UPS異常</option>
-                        <option value="錢箱異常">錢箱異常</option>
-                        <option value="收銀機程式異常">收銀機程式異常</option>
-                        <option value="會員系統異常">會員系統異常</option>
-                        <option value="停車折抵異常">停車折抵異常</option>
-                        <option value="收銀人員操作異常">收銀人員操作異常</option>
-                        <option value="讀卡機與一卡通擺放太近">讀卡機與一卡通擺放太近</option>
-                        <option value="商品主檔或合約異常">商品主檔或合約異常</option>
-                        <option value="與資訊部無關叫修">與資訊部無關叫修</option>
-                        
-                </select><br></div>
-                </div>
-                <div class="problem">
-                <label for ="problem"><b style="font-size: large;">報修內容:</b></label>
-                <textarea name="problem" rows="5" cols="40"  required></textarea><br>
+               
+
+				</div>
+               
+                <div class=sort>
+                <b style="font-size:x-large;">問題類型:</b>
+                <select name="problem_sort" style="font-size:x-large" required> 
+	<option value="">----------------------</option>
+	<option value="收銀機">收銀機
+	<option value="刷卡機">刷卡機 
+	<option value="週邊設備">週邊設備
+	<option value="網路">網路
+	<option value="使用者">使用者
+	<option value="其他">其他
+        </select><br>
+	</div>
+				
+                <div class=problem>
+                <label for ="problem"><b style="font-size:x-large;">報修內容:</b></label>
+                <textarea name="problem" rows="5" cols="40" style="font-size:x-large"; required></textarea><br>
                 </div>
                 
-                <div class="solution">
-                <label for ="solution"><b style="font-size: large;">處理方式:</b></label>
-                <textarea name="solution" rows="5" cols="40"  required></textarea><br>
+                <div class=solution>
+                <label for ="solution"><b style="font-size:x-large">處理方式:</b></label>
+                <textarea name="solution" rows="5" cols="40" style="font-size:x-large"; required></textarea><br>
                 </div>
 
-                <div class="content">
-                <label for ="remark"><b style="font-size: large;">備註:</b></label>
-                <textarea name="remark" rows="5" cols="40" placeholder="ex:借給店櫃的設備" ></textarea><br>
+                <div class=remark>
+                <label for ="remark"><b style="font-size:x-large;">備註:</b></label>
+                <textarea name="remark" rows="5" cols="40" style="font-size:x-large";></textarea><br>
                 </div>
-                <label for ="contract"><b style="font-size: large;">撤櫃日期:</b></label>
-                <input type="date"  name="contract" ><b style="font-size: large;">(有裝機請輸入撤櫃時間)</b><br></div>
-               <div class="engineer">
-                   <b style="font-size: large;">處理人員: &nbsp</b>
-                    <select name="address" >
-                        <option value="正翰"> 正翰 </option>
+				<div class=processtime>
+				<label for ="processtime"><b style="font-size:x-large;">處理時間:</b></label><input type='number' min='1' max='480' name='processtime' style="font-size:x-large" required>分鐘<br>
+                </div>
+                
+                   <b style="font-size:x-large;">處理人員:</b>
+                    <select name="address" style="font-size:x-large"; >
+                        
                         <option value="啟倫"> 啟倫 </option>
-                        <option value="柏文"> 柏文 </option>
-                        <option value="書翰"> 書翰 </option>
-                        
-                        
-                    </select>
-                    
-                 <!--  <label for ="contract"><b>合約到期日:</b></label>
-                <input type="date"  name="contract"  ><br>-->
-        
-    
-    </div>  
-            <div class="Data-submit">
-            <input type="submit" name="submit" value="完成">
-            <input type="RESET" name="RESET" value="清除">
-            </div> 
-
+                        <option value="書翰"> 書翰 </option>   
+						<option value="柏文"> 俊豪 </option>
+                    </select><br>
+                 <div class=finish>
+				<label for ="whether"><b style="font-size:x-large;">是否完成:</b></label><input type='radio' name='whether' style="font-size:x-large" value='完成' style="font-size:x-large" checked>完成
+                <input type='radio' name=whether style="font-size:x-large" value='未完成' style="font-size:x-large">未完成<br>
+				</div>   
+					
+            <div class=submit>
+            <input type="submit" name="submit" value="完成" style="font-size:x-large"; >
+            <input type="RESET" name="RESET" value="清除" style="font-size:x-large";>
+            </div>
+        </td>
+        </tr>
+        </table>
     <style type="text/css">
-          
-           .option{
-            margin:5px 0;
-            width:1500px;
-            
-           }
-            .Data-Title{
-                width:1000px;
-                display: block;
-                margin:5px 0;
-                
-                text-align:left;
-            }
-        .Data-submit{
-                text-align: right ;
-                width:280px;
-        }
-        label {
-                display: inline-block;
-                
-                text-align:left;
-                margin-right: 10px;
-               
-        }
-        .content{
-            margin:10px 36;
-            width:1000px;
+        
+        table.box{
+  width: 500px;
+  height: 250px;
+  margin: auto;}
 
-        }
-        .engineer{
-            margin:10px 0;
-            width:1000px;
-            font:30px ;
-        }
-        .sort{
-            margin:10px 0;
-            width:1000px;
-            
-        }
-        .problem{
-            margin:10px 0;
-            width:1000px;
-        }
-        .solution{
-            margin:10px 0;
-            width:1000px;
-        }
+  table.box td{
+  vertical-align: middle;
+  text-align: center;
+  width: 1000px;
+}
+         .Data-Title{
+  width: 400px;
+  
+  display: inline-block;
+  text-align: left;
+  
+}
+            .shopname{
+				margin:5px 0;
+				width: 1000px;
+			}
+			.sort{
+				margin:10px 0;
+				width: 1000px;
+			}
+			.problem{
+                margin:5px 0;
+				width: 1000px;
+				valign=top;
+            }
+			.solution{
+				 margin:5px 0;
+				width: 1000px;
+				
+			}
+            .remark{
+                margin:5px 48;
+                width: 1000px;
+            }
+            .submit{
+                text-align: center;
+                margin:20px 0;
+				
+            }
+			.processtime{
+				
+				width: 1000px;
+			}
+            .finish{
+				
+				margin:5px 0;
+				width: 1000px;
+			}
+        
 
 </style>
 </form>
-<META HTTP-EQUIV="REFRESH" CONTENT="600;URL=logout.php"> <!--10分鐘後自動登出-->
+
 </body>
 </html>
